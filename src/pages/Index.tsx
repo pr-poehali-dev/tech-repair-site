@@ -9,6 +9,25 @@ import {
 import Icon from "@/components/ui/icon";
 
 const Index = () => {
+  const scrollToContact = () => {
+    const contactSection = document.getElementById("contact");
+    const phoneElement = document.querySelector("[data-phone]");
+
+    contactSection?.scrollIntoView({ behavior: "smooth" });
+
+    // Выделяем телефон с анимацией
+    setTimeout(() => {
+      if (phoneElement) {
+        phoneElement.classList.add("animate-pulse");
+        phoneElement.style.transform = "scale(1.05)";
+        setTimeout(() => {
+          phoneElement.classList.remove("animate-pulse");
+          phoneElement.style.transform = "scale(1)";
+        }, 2000);
+      }
+    }, 500);
+  };
+
   const services = [
     {
       title: "Ремонт Телевизоров",
@@ -111,6 +130,7 @@ const Index = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button
               size="lg"
+              onClick={scrollToContact}
               className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all"
             >
               <Icon name="Phone" size={20} className="mr-2" />
@@ -164,7 +184,10 @@ const Index = () => {
                   <div className="text-2xl font-bold text-blue-600 mb-4">
                     {service.price}
                   </div>
-                  <Button className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white rounded-lg">
+                  <Button
+                    onClick={scrollToContact}
+                    className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white rounded-lg"
+                  >
                     Заказать ремонт
                   </Button>
                 </CardContent>
@@ -291,7 +314,8 @@ const Index = () => {
                 <Icon name="Phone" size={32} className="text-white" />
                 <a
                   href="tel:89081750904"
-                  className="text-3xl font-bold text-white hover:text-blue-200 transition-colors"
+                  data-phone
+                  className="text-3xl font-bold text-white hover:text-blue-200 transition-all duration-300"
                 >
                   8 (908) 175-09-04
                 </a>
